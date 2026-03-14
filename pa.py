@@ -8,24 +8,24 @@ def Notation():
     print("For example, m = ([1/2,-1/2],) is the Steinberg of GL(2).") 
     print("")
     print("T = ([x_1,e_1], ... ,[x_t,e_t]) is a tempered representation of G")
-    print("with L-parameter \phi = S_{2x_1+1} + ... + S_{2x_t+1}")
-    print("and character \ep(S_{2x_i+1}) = e_i.")
+    print(r"with L-parameter \phi = S_{2x_1+1} + ... + S_{2x_t+1}")
+    print(r"and character \ep(S_{2x_i+1}) = e_i.")
     print("For example, T = ([1/2,-1],[3/2,+1],[5/2,-1]) is a supercuspidal representation of SO(13).")
     print("")
     print("If T is trivial, write T = ([1,1],).")
     print("")
     print("psi = ((a_1,b_1), ... ,(a_r,b_r)) is an A-parameter,")
-    print("which means that S_{a_1} \otimes S_{b_1} + ... + S_{a_r} \otimes S_{b_r}.")
+    print(r"which means that S_{a_1} \otimes S_{b_1} + ... + S_{a_r} \otimes S_{b_r}.")
     print("")
     print("E = (([A_1,B_1],l_1,eta_1), ... ,([A_m,B_m],l_m,eta_m)) is an extended multi-segment.")
 
-psi = ((2,2),(5,3))
-psi1 = ((1,6),(1,2),(4,1))
+#psi = ((2,2),(5,3))
+#psi1 = ((1,6),(1,2),(4,1))
 psi2 = ((51,31),(31,45),(13,5))
-psi3 = ((1, 5), (3, 3), (4, 4))
-psi4 = ((2, 5), (3, 2), (5, 4))
-E = (([0,0],0,-1),([2,0],0,-1),([2,2],0,-1))
-(a,b) = (4,2)
+#psi3 = ((1, 5), (3, 3), (4, 4))
+#psi4 = ((2, 5), (3, 2), (5, 4))
+#E = (([0,0],0,-1),([2,0],0,-1),([2,2],0,-1))
+#(a,b) = (4,2)
 
 phi = ((1,1),(3,1),(5,1))
 phi1 = ((1, 1), (3, 1), (5, 1), (7, 1), (9, 1))
@@ -34,6 +34,9 @@ m = ([0,-3],[2,-3])
 m1 = ([-2,-3],[-1,-1])
 m2 = ([-1/2,-5/2],)
 
+E0 = (([5/2, -3/2], 2, -1), ([3/2, 1/2], 0, -1), ([7/2, 1/2], 2, 1))
+psi = ((2, 5), (3, 2), (5, 4))
+E4 = (([5,0],1,-1), ([7,1],3,+1))
 
 
 ###########################################################
@@ -55,10 +58,10 @@ def LBM(x,m):
     Output: (A,B,A0,B0,A1,B1)
         A  ( = A_{x-1} )
         B  ( = A_{x} )
-        A0 ( = A_{x-1}^0 )
-        B0 ( = A_{x}^0 )
-        A1 ( = A_{x-1}^c )
-        B1 ( = A_{x}^c )
+        A0 ( = A_{x-1}**0 )
+        B0 ( = A_{x}**0 )
+        A1 ( = A_{x-1}**c )
+        B1 ( = A_{x}**c )
     """
     A = tuple(filter(lambda z: z[0] == x-1, list(m)))
     B = tuple(filter(lambda z: z[0] == x, list(m)))
@@ -99,7 +102,7 @@ def LD(x,m):
     Output: (k,n)
         k (non-negative integer)
         n (multi-segment)
-            L_{x}^{max}(m) = L_{x}^{(k)}(m) = n
+            L_{x}**{max}(m) = L_{x}**{(k)}(m) = n
     """
     A, B, A0, B0, A1, B1 = LBM(x,m)
     C = list(m)
@@ -119,7 +122,7 @@ def LS(x,m):
         m (multi-segment)
     Output: n
         n (multi-segment)
-            soc( ||^{x} \times m ) = n
+            soc( ||**{x} \times m ) = n
     """
     A, B, A0, B0, A1, B1 = LBM(x,m)
     C = list(m)
@@ -147,10 +150,10 @@ def RBM(y,m):
     Output: (A,B,A0,B0,A1,B1)
         A  ( = B_{y+1} )
         B  ( = B_{y} )
-        A0 ( = B_{y+1}^0 )
-        B0 ( = B_{y}^0 )
-        A1 ( = B_{y+1}^c )
-        B1 ( = B_{y}^c )
+        A0 ( = B_{y+1}**0 )
+        B0 ( = B_{y}**0 )
+        A1 ( = B_{y+1}**c )
+        B1 ( = B_{y}**c )
     """
     A = tuple(filter(lambda z: z[1] == y+1, list(m)))
     B = tuple(filter(lambda z: z[1] == y, list(m)))
@@ -191,7 +194,7 @@ def RD(y,m):
     Output: (k,n)
         k (non-negative integer)
         n (multi-segment)
-            R_{x}^{max}(m) = R_{x}^{(k)}(m) = n
+            R_{x}**{max}(m) = R_{x}**{(k)}(m) = n
     """
     A, B, A0, B0, A1, B1 = RBM(y,m)
     C = list(m)
@@ -211,7 +214,7 @@ def RS(y,m):
         m (multi-segment)
     Output: n
         n (multi-segment)
-            soc( m \times ||^{x} ) = n
+            soc( m \times ||**{x} ) = n
     """
     A, B, A0, B0, A1, B1 = RBM(y,m)
     C = list(m)
@@ -241,7 +244,7 @@ def D(x,m,T):
         k (non-negative integer)
         dm (multi-segment, increasing negative exponents)
         dT (tempered L-parameter)
-            D_{x}^{max}(m,T) = D_{x}^{(k)}(m,T) = (dm,dT)
+            D_{x}**{max}(m,T) = D_{x}**{(k)}(m,T) = (dm,dT)
     """
     if x == 0:
         print("We cannot compute the 0-derivatives.")
@@ -254,7 +257,7 @@ def D(x,m,T):
             T0.append([-1/2,+1]) 
         t = m.count([x-1,-x])
         n = list(filter(lambda z: z != [x-1,-x], m))
-        e = (-1)^t  
+        e = (-1)**t  
         A, B, A0, B0, A1, B1 = LBM(x,n)
         C, D, C0, D0, C1, D1 = RBM(-x,n)
         for j in range(len(B1)):        
@@ -363,7 +366,7 @@ def D1(x,m,T):
     Output: (dm,dT)
         dm (multi-segment, increasing negative exponents)
         dT (tempered L-parameter)
-            D_{x}^{(1)}(m,T) = (dm,dT)
+            D_{x}**{(1)}(m,T) = (dm,dT)
     """
     T0 = list(T)
     t = m.count([x-1,-x])
@@ -375,7 +378,7 @@ def D1(x,m,T):
                 n[i] = [x-1,n[i][1]]
                 break 
     else:
-        e = (-1)^t
+        e = (-1)**t
         if 2*x % 2 == 1:
             T0.append([-1/2,+1])
         if T0.count([x,1])+T0.count([x,-1]) == 0:
@@ -453,11 +456,11 @@ def S(x,m,T):
     Output: (dm,dT)
         dm (multi-segment, increasing negative exponents)
         dT (tempered L-parameter)
-            soc( ||^{x} \rtimes (m,T) ) = (dm,dT)
+            soc( ||**{x} \rtimes (m,T) ) = (dm,dT)
     """
     t = m.count([x-1,-x])
     n = list(filter(lambda z: z != [x-1,-x], m))
-    T0 = list(T); e = (-1)^t
+    T0 = list(T); e = (-1)**t
     if 2*x % 2 == 1:
         T0.append([-1/2,+1])                                                             
     if T0.count([x,1])*T0.count([x-1,-e]) + T0.count([x,-1])*T0.count([x-1,e]) > 0:
@@ -537,12 +540,12 @@ def D00(m,T):
     Input: (m,T)
         m (multi-segment, increasing negative exponents)
         T (tempered L-parameter)
-            (m,T) is ||^{-1} reduced.
+            (m,T) is ||**{-1} reduced.
     Output: (k,dm,dT)
         k (non-negative integer)
         dm (multi-segment, increasing negative exponents)
         dT (tempered L-parameter)
-            D_{[0,-1]}^{max}(m,T) = D_{[0,-1]}^{(k)}(m,T) = (dm,dT)
+            D_{[0,-1]}**{max}(m,T) = D_{[0,-1]}**{(k)}(m,T) = (dm,dT)
     """
     if D(-1,m,T)[0] > 0:
         print("L(m; T) has a nontrivial (-1)-derivative.")
@@ -559,7 +562,7 @@ def S00(m,T):
     Input: (m,T)
         m (multi-segment, increasing negative exponents)
         T (tempered L-parameter)
-            (m,T) is ||^{-1} reduced.
+            (m,T) is ||**{-1} reduced.
     Output: (dm,dT)
         dm (multi-segment, increasing negative exponents)
         dT (tempered L-parameter)
@@ -591,8 +594,8 @@ def D01A(s,t,T):
         ds (non-negative integer)
         dt (non-negative integer)                
         dT (tempered L-parameter)
-            D_{[0,1]}^{(k)}( L((||^1)^{s} \times [0,-1]^{t} \times T) )
-            = L((||^1)^{ds} \times [0,-1]^{dt} \times dT)
+            D_{[0,1]}**{(k)}( L((||**1)**{s} \times [0,-1]**{t} \times T) )
+            = L((||**1)**{ds} \times [0,-1]**{dt} \times dT)
     """
     n = []
     for j in range(s):                                        
@@ -601,9 +604,9 @@ def D01A(s,t,T):
         n.append([0,-1])
     m = tuple(n)                                      
     if D(1,m,T)[0] > 0:                                       
-        print("L([-1,-1]^s,[0,-1]^t; T) has a nontrivial 1-derivative.")
+        print("L([-1,-1]**s,[0,-1]**t; T) has a nontrivial 1-derivative.")
     else:    
-        e = (-1)^t; T0 = list(T)
+        e = (-1)**t; T0 = list(T)
         if T.count([1,1]) > 0:
             if (T.count([0,-e])-s) % 2 == 1: 
                 if t % 2 == 0: 
@@ -739,8 +742,8 @@ def S01A(k,s,t,T):
         ds (non-negative integer)
         dt (non-negative integer)                
         dT (tempered L-parameter)
-            soc( Z[0,1]^{k} \rtimes L((||^1)^{s} \times [0,-1]^{t} \times T) )
-            = L((||^1)^{ds} \times [0,-1]^{dt} \times dT)
+            soc( Z[0,1]**{k} \rtimes L((||**1)**{s} \times [0,-1]**{t} \times T) )
+            = L((||**1)**{ds} \times [0,-1]**{dt} \times dT)
     """
     n = []
     for j in range(s):                                        
@@ -749,7 +752,7 @@ def S01A(k,s,t,T):
         n.append([0,-1])
     m = tuple(n)                                      
     if D(1,m,T)[0] > 0:                                       
-        print("L([-1,-1]^s,[0,-1]^t; T) has a nontrivial 1-derivative.")
+        print("L([-1,-1]**s,[0,-1]**t; T) has a nontrivial 1-derivative.")
     elif k == 0:
         return s,t,T
     else:
@@ -765,11 +768,11 @@ def S01A(k,s,t,T):
                 ds = s; dt = k-1
                 if T.count([0,1]) > 0:
                     T0.append([0,1])
-                    T0.append([1,(-1)^k])
+                    T0.append([1,(-1)**k])
                     DT = tuple(sorted(T0))
                 if T.count([0,-1]) > 0:
                     T0.append([0,-1])
-                    T0.append([1,-(-1)^k])
+                    T0.append([1,-(-1)**k])
                     DT = tuple(sorted(T0))
         if k % 2 == 1:
             if t == 1:
@@ -816,7 +819,7 @@ def S01A(k,s,t,T):
                         for i in range(T0.count([0,1])):
                             T0.remove([0,1])
                             T0.append([0,-1])
-                        T0.append([1,-(-1)^k])
+                        T0.append([1,-(-1)**k])
                     DT = tuple(sorted(T0))
                 if T.count([0,-1]) > 0:
                     if T.count([1,1])+T.count([1,-1]):
@@ -829,7 +832,7 @@ def S01A(k,s,t,T):
                         for i in range(T0.count([0,-1])):
                             T0.remove([0,-1])
                             T0.append([0,1])
-                        T0.append([1,(-1)^k])
+                        T0.append([1,(-1)**k])
                     DT = tuple(sorted(T0))                
             elif T.count([1,1])+T.count([1,-1]) > 0:
                 ds = s+1; dt = k-1
@@ -845,11 +848,11 @@ def S01A(k,s,t,T):
                 ds = s-1; dt = k
                 if T.count([0,1]) > 0:
                     T0.remove([0,1])
-                    T0.append([1,-(-1)^k])
+                    T0.append([1,-(-1)**k])
                     DT = tuple(sorted(T0))
                 if T.count([0,-1]) > 0:
                     T0.remove([0,-1])
-                    T0.append([1,(-1)^k])
+                    T0.append([1,(-1)**k])
                     DT = tuple(sorted(T0))                
         return ds,dt,DT
 
@@ -868,7 +871,7 @@ def D01(m,T):
         k (non-negative integer)
         dm (multi-segment, increasing negative exponents)
         dT (tempered L-parameter)
-            D_{[0,1]}^{max}(m,T) = D_{x}^{(k)}(m,T) = (dm,dT)
+            D_{[0,1]}**{max}(m,T) = D_{x}**{(k)}(m,T) = (dm,dT)
     """
     if D(1,m,T)[0] > 0:
         print("L(m; T) has a nontrivial 1-derivative.")       
@@ -894,7 +897,6 @@ def D01(m,T):
         n = list(n)
         k2 = n.count([0,0])
         k3 = n.count([1,1])
-        k2 = 0
         l2 = k3-k2
         n = list(filter(lambda z: z != [0,0] and z != [1,1], n))
         s2,t2,T2 = S01A(k2,sA,tA,TA)
@@ -927,7 +929,7 @@ def S01(k,m,T):
     Output: (dm,dT)
         dm (multi-segment, increasing negative exponents)
         dT (tempered L-parameter)
-            soc( Z[0,1]^{k} \rtimes (m,T) ) = (dm,dT)
+            soc( Z[0,1]**{k} \rtimes (m,T) ) = (dm,dT)
     """
     if D(1,m,T)[0] > 0:
         print("L(m; T) has a nontrivial 1-derivative.")       
@@ -1109,7 +1111,7 @@ def rep(E):
 ###########################################################
 
 def nec(E):
-    """
+    r"""
     Necessary condition for \pi(E) != 0.
     Input: E
         E (extended multi-segment)
@@ -1120,7 +1122,7 @@ def nec(E):
         A1 = E[i][0][0]; B1 = E[i][0][1]; l1 = E[i][1]; e1 = E[i][2]
         A2 = E[i+1][0][0]; B2 = E[i+1][0][1]; l2 = E[i+1][1]; e2 = E[i+1][2]        
         if A2 >= A1 and B2 >= B1:
-            if e2*e1 == (-1)^(A1-B1):
+            if e2*e1 == (-1)**(A1-B1):
                 if A2-l2 < A1-l1 or B2+l2 < B1+l1:
                     e = 0
                     break
@@ -1129,7 +1131,7 @@ def nec(E):
                     e = 0
                     break
         if A2 >= A1 and B2 <= B1:
-            if e2*e1 == (-1)^(A1-B1):
+            if e2*e1 == (-1)**(A1-B1):
                 if l2-l1 < 0 or l2-l1 > (A2-B2)-(A1-B1):
                     e = 0
                     break
@@ -1138,7 +1140,7 @@ def nec(E):
                     e = 0
                     break
         if A2 <= A1 and B2 >= B1:
-            if e2*e1 == (-1)^(A1-B1):
+            if e2*e1 == (-1)**(A1-B1):
                 if l1-l2 < 0 or l1-l2 > (A1-B1)-(A2-B2):
                     e = 0
                     break
@@ -1163,27 +1165,27 @@ def change(E,i):
     A1 = E[i][0][0]; B1 = E[i][0][1]; l1 = E[i][1]; e1 = E[i][2]
     A2 = E[i+1][0][0]; B2 = E[i+1][0][1]; l2 = E[i+1][1]; e2 = E[i+1][2]   
     if A2 >= A1 and B2 <= B1:
-        if e2*e1 == (-1)^(A1-B1+1):
+        if e2*e1 == (-1)**(A1-B1+1):
             E0[i] = ([A2,B2],l2+2*l1-(A1-B1+1),e1)
-            E0[i+1] = ([A1,B1],l1,(-1)^(A2-B2)*e1)
+            E0[i+1] = ([A1,B1],l1,(-1)**(A2-B2)*e1)
         else: 
             if l2-2*l1 < (A2-B2)/2-(A1-B1):
                 E0[i] = ([A2,B2],l2-2*l1+(A1-B1+1),-e1)
-                E0[i+1] = ([A1,B1],l1,(-1)^(A2-B2)*e1)
+                E0[i+1] = ([A1,B1],l1,(-1)**(A2-B2)*e1)
             else: 
                 E0[i] = ([A2,B2],-l2+2*l1+(A2-B2)-(A1-B1),e1)
-                E0[i+1] = ([A1,B1],l1,(-1)^(A2-B2)*e1)
+                E0[i+1] = ([A1,B1],l1,(-1)**(A2-B2)*e1)
     if A2 <= A1 and B2 >= B1:
-        if e2*e1 == (-1)^(A1-B1+1):
+        if e2*e1 == (-1)**(A1-B1+1):
             E0[i] = ([A2,B2],l2,-e1)
-            E0[i+1] = ([A1,B1],l1+2*l2-(A2-B2+1),(-1)^(A2-B2+1)*e1)
+            E0[i+1] = ([A1,B1],l1+2*l2-(A2-B2+1),(-1)**(A2-B2+1)*e1)
         else: 
             if l1-2*l2 < (A1-B1)/2-(A2-B2):
                 E0[i] = ([A2,B2],l2,e1)
-                E0[i+1] = ([A1,B1],l1-2*l2+(A2-B2+1),(-1)^(A2-B2+1)*e1)
+                E0[i+1] = ([A1,B1],l1-2*l2+(A2-B2+1),(-1)**(A2-B2+1)*e1)
             else: 
                 E0[i] = ([A2,B2],l2,e1)
-                E0[i+1] = ([A1,B1],-l1+2*l2+(A1-B1)-(A2-B2),(-1)^(A2-B2)*e1)
+                E0[i+1] = ([A1,B1],-l1+2*l2+(A1-B1)-(A2-B2),(-1)**(A2-B2)*e1)
     return tuple(E0)
 
 def orders(E): 
@@ -1234,7 +1236,7 @@ def nonzero(E,e):
     s = 1
     for i in range(len(E)): 
         b = E[i][0][0]-E[i][0][1]+1
-        s = (-1)^(int(b/2) + E[i][1]) * E[i][2]^b * s
+        s = (-1)**(int(b/2) + E[i][1]) * E[i][2]**b * s
     if s != e: 
             return False
     for i in range(len(E)): 
@@ -1244,7 +1246,7 @@ def nonzero(E,e):
         d = 0
         for k in range(i): 
             d = d + (E[k][0][0]+E[k][0][1]+1)
-        if (E[i][0][1] + E[i][1]) == -1/2 and E[i][2] != (-1)^d: 
+        if (E[i][0][1] + E[i][1]) == -1/2 and E[i][2] != (-1)**d: 
             return False
     for E0 in orders(E):
         if not nec(E0):
@@ -1268,7 +1270,7 @@ def deform(E,i):
     E0 = list(E)
     A1 = E[i][0][0]; B1 = E[i][0][1]; l1 = E[i][1]; e1 = E[i][2]
     if l1 == 0:
-        if i < len(E)-1 and E[i+1][0][1] == A1+1 and E[i+1][1] == 0 and e1*E[i+1][2] == -(-1)^(A1-B1):
+        if i < len(E)-1 and E[i+1][0][1] == A1+1 and E[i+1][1] == 0 and e1*E[i+1][2] == -(-1)**(A1-B1):
             del E0[i]
             del E0[i]
             E0.insert(i, ([E[i+1][0][0],B1],0,e1))
@@ -1286,9 +1288,9 @@ def deform(E,i):
             if A0 < B0:
                 del E0[i]
                 E0.insert(i, ([A0,B1],0,e1))
-                E0.insert(i+1, ([A1,B0],0,(-1)^(B0-B1)*e1))
-                for k in range(B0-A0-1):
-                    E0.insert(i+1,([B0-1-k,B0-1-k],0,(-1)^(B0-B1+1+k)*e1))
+                E0.insert(i+1, ([A1,B0],0,(-1)**(B0-B1)*e1))
+                for k in range(int(B0-A0-1)):
+                    E0.insert(i+1,([B0-1-k,B0-1-k],0,(-1)**(B0-B1+1+k)*e1))
                 if E0[i][0] == [-1/2,-1/2]:
                     for k in range(i):
                         E0 = list(change(E0,i-1-k))
@@ -1303,63 +1305,63 @@ def deform(E,i):
                 if 2*l2 == A2-B2+1:
                     if l1 == l2:
                         E0[i] = ([A2,B1],l1,e1)
-                        E0[i+1] = ([A1,B2],l1,-(-1)^(A2-B1)*e1)
+                        E0[i+1] = ([A1,B2],l1,-(-1)**(A2-B1)*e1)
                         if A2+B1 < 0:
                             for k in range(i):
                                 E0 = list(change(E0,i-1-k))
                             del E0[0]
                 elif 2*l1 == A1-B1+1:
                     if l1 == (A2-B2+1)-l2:
-                        E0[i] = ([A2,B1],l2+(B2-B1),(-1)^(A1-B1)*e2)
-                        E0[i+1] = ([A1,B2],l2,(-1)^(A2-A1)*e2)
+                        E0[i] = ([A2,B1],l2+(B2-B1),(-1)**(A1-B1)*e2)
+                        E0[i+1] = ([A1,B2],l2,(-1)**(A2-A1)*e2)
                         if A2+B1 < 0:
                             for k in range(i):
                                 E0 = list(change(E0,i-1-k))
                             del E0[0]
-                elif e1*e2 == (-1)^(A1-B1) and l1 == l2:
+                elif e1*e2 == (-1)**(A1-B1) and l1 == l2:
                     if 2*l1+A1-A2 <= A2-B2+1:
                         E0[i] = ([A2,B1],l1,e1)
-                        E0[i+1] = ([A1,B2],l1+(A1-A2),(-1)^(A1-A2)*e2)
+                        E0[i+1] = ([A1,B2],l1+(A1-A2),(-1)**(A1-A2)*e2)
                     else: 
                         E0[i] = ([A2,B1],l1,e1)
-                        E0[i+1] = ([A1,B2],-l1+(A2-B2+1),-(-1)^(A1-A2)*e2)
+                        E0[i+1] = ([A1,B2],-l1+(A2-B2+1),-(-1)**(A1-A2)*e2)
                     if A2+B1 < 0:
                         for k in range(i):
                             E0 = list(change(E0,i-1-k))
                         del E0[0]
-                elif e1*e2 == -(-1)^(A1-B1) and l1 == (A2-B2+1)-l2:
+                elif e1*e2 == -(-1)**(A1-B1) and l1 == (A2-B2+1)-l2:
                     if l1+B1 <= l2+B2:
                         E0[i] = ([A2,B1],l1,e1)
-                        E0[i+1] = ([A1,B2],l2,-(-1)^(A2-B1)*e1)
+                        E0[i+1] = ([A1,B2],l2,-(-1)**(A2-B1)*e1)
                     else:
                         E0[i] = ([A2,B1],l2+(B2-B1),-e1)
-                        E0[i+1] = ([A1,B2],l2,-(-1)^(A2-B1)*e1)
+                        E0[i+1] = ([A1,B2],l2,-(-1)**(A2-B1)*e1)
                     if A2+B1 < 0:
                         for k in range(i):
                             E0 = list(change(E0,i-1-k))
                         del E0[0]
         if B1 < B2 and A1 < A2: 
-            if A2-l2 == A1-l1 and e2*e1 == (-1)^(A1-B1):
+            if A2-l2 == A1-l1 and e2*e1 == (-1)**(A1-B1):
                 E0[i] = ([A2,B1],l1,e1)
-                E0[i+1] = ([A1,B2],l2-(A2-A1),(-1)^(A2-A1)*e2)
+                E0[i+1] = ([A1,B2],l2-(A2-A1),(-1)**(A2-A1)*e2)
                 if B2 == A1+1:
                    del E0[i+1]
-            if B2+l2 == B1+l1 and e2*e1 == (-1)^(A1-B1):
+            if B2+l2 == B1+l1 and e2*e1 == (-1)**(A1-B1):
                 if (A1-B1+1)-2*l1 >= A2-A1:
                     E0[i] = ([A2,B1],l1+(A2-A1),e1)
-                    E0[i+1] = ([A1,B2],l2,(-1)^(A2-A1)*e2)
+                    E0[i+1] = ([A1,B2],l2,(-1)**(A2-A1)*e2)
                 else: 
                     E0[i] = ([A2,B1],(A1-B1+1)-l1,-e1)
-                    E0[i+1] = ([A1,B2],l2,(-1)^(A2-A1)*e2)
+                    E0[i+1] = ([A1,B2],l2,(-1)**(A2-A1)*e2)
                 if B2 == A1+1:
                    del E0[i+1]
-            if B2+l2 == A1-l1+1 and e1*e2 == -(-1)^(A1-B1):
+            if B2+l2 == A1-l1+1 and e1*e2 == -(-1)**(A1-B1):
                 if l2 <= l1:
                     E0[i] = ([A2,B1],l1,e1)
-                    E0[i+1] = ([A1,B2],l2,(-1)^(A2-A1)*e2)
+                    E0[i+1] = ([A1,B2],l2,(-1)**(A2-A1)*e2)
                 else: 
                     E0[i] = ([A2,B1],l1,e1)
-                    E0[i+1] = ([A1,B2],l1,-(-1)^(A2-A1)*e2)
+                    E0[i+1] = ([A1,B2],l1,-(-1)**(A2-A1)*e2)
                 if B2 == A1+1:
                    del E0[i+1]
     return tuple(E0)
@@ -1395,7 +1397,7 @@ def A_packet(P,e):
             T[t] = [T[t][0], T[t][1]+1]
     for i in range(len(T)):
         for j in range(T[i][1]):
-            E.append( (T[i][0], 0, (-1)^(j*(T[i][0][0]-T[i][0][1]))) )
+            E.append( (T[i][0], 0, (-1)**(j*(T[i][0][0]-T[i][0][1]))) )
     E = tuple(E)
     Pi.append(E)
     t = 0
@@ -1487,7 +1489,7 @@ def symbol(E):
                     v.append("  > ")
                 if B0+j >= 0 and (2*B0) % 2 == 1:
                     v.append(" > ")
-            elif (-1)^(B0+j-l-B) == e:
+            elif (-1)**(B0+j-l-B) == e:
                 if B0+j < 0 and (2*B0) % 2 == 0:
                     v.append(" +")
                 if B0+j >= 0 and (2*B0) % 2 == 0:
@@ -1561,13 +1563,20 @@ def char(E):
     for i in range(len(E)):
         C.append(1); z.append(0) 
     for i in range(len(E)):
+        a1 = E[i][0][0]+E[i][0][1]+1; b1 = E[i][0][0]-E[i][0][1]+1
         for j in range(len(E)):
-            if ((E[i][0][0]-E[i][0][1])-(E[j][0][0]-E[j][0][1])) %2 == 1:
-                if j<i and E[j][0][0]+E[j][0][1] > E[i][0][0]+E[i][0][1] and E[j][0][0]-E[j][0][1] > E[i][0][0]-E[i][0][1]: 
+            a2 = E[j][0][0]+E[j][0][1]+1; b2 = E[j][0][0]-E[j][0][1]+1
+            if b1%2 == 0 and b2%2 == 1:
+                if j<i and a2 > a1 and b1 > b2:
                     z[i] = z[i]+1
-                if j>i and E[j][0][0]+E[j][0][1] < E[i][0][0]+E[i][0][1] and E[j][0][0]-E[j][0][1] < E[i][0][0]-E[i][0][1]: 
+                if j>i and a1 > a2 and b1 > b2:
                     z[i] = z[i]+1
-        C[i] = (-1)^(z[i]+int((E[i][0][0]-E[i][0][1]+1)/2)+E[i][1])*E[i][2]^(E[i][0][0]-E[i][0][1]+1)
+            if b1%2 == 1 and b2%2 == 0:
+                if j<i and a2 > a1 and b2 > b1:
+                    z[i] = z[i]+1
+                if j>i and a1 > a2 and b2 > b1:
+                    z[i] = z[i]+1
+        C[i] = (-1)**(z[i]+int(b1/2)+E[i][1])*E[i][2]**(b1)
     return C, par(E)
 
 
@@ -1590,7 +1599,7 @@ def hat(E):
             b = 0
             for j in range(len(E0)):
                 b = b + (E0[j][0][0]-E0[j][0][1]+1)
-            F.insert(0,([E0[i][0][0],-E0[i][0][1]],E0[i][1]+E0[i][0][1],(-1)^(b-E0[i][0][0]+E0[i][0][1]-1)*E0[i][2])) 
+            F.insert(0,([E0[i][0][0],-E0[i][0][1]],E0[i][1]+E0[i][0][1],(-1)**(b-E0[i][0][0]+E0[i][0][1]-1)*E0[i][2])) 
         if (2*E0[i][0][1]) %2 == 1:
             a = 0; b = 0
             for j in range(len(E0)): 
@@ -1598,10 +1607,10 @@ def hat(E):
                    a = a + (E0[j][0][0]+E0[j][0][1])
                 if j < i:
                    b = b + (E0[j][0][0]-E0[j][0][1])
-            if E[i][2] != (-1)^b or E0[i][1] == (E0[i][0][0]-E0[i][0][1]+1)/2: 
-                F.insert(0,([E[i][0][0],-E[i][0][1]],E[i][1]+E[i][0][1]-1/2,(-1)^a))
+            if E[i][2] != (-1)**b or E0[i][1] == (E0[i][0][0]-E0[i][0][1]+1)/2: 
+                F.insert(0,([E[i][0][0],-E[i][0][1]],E[i][1]+E[i][0][1]-1/2,(-1)**a))
             else:
-                F.insert(0,([E[i][0][0],-E[i][0][1]],E[i][1]+E[i][0][1]+1/2,(-1)^(a+1)))
+                F.insert(0,([E[i][0][0],-E[i][0][1]],E[i][1]+E[i][0][1]+1/2,(-1)**(a+1)))
     return tuple(F)
 
 def dual_rep(E):
@@ -1680,7 +1689,7 @@ def CUIP(E,C):
             E1 = reorder(E1)
             if E1 not in C:
                 C.append(E1) 
-        for l in range(-E0[0][0][1]+1-e,E0[0][0][0]+1-e):
+        for l in range(int(-E0[0][0][1]+1-e),int(E0[0][0][0]+1-e)):
             E1 = list(E0)
             E1.insert(0,([l-1+e,-l-e],l,+1))
             E1 = deform(E1,0)
@@ -1702,7 +1711,7 @@ def CUIP(E,C):
                         if E2 not in C:
                             C.append(E2)
                     else:
-                        for l in range(-E1[0][0][1]+1-e,E1[0][0][0]+1-e):
+                        for l in range(int(-E1[0][0][1]+1-e),int(E1[0][0][0]+1-e)):
                             E2 = list(E1)
                             E2.insert(0,([l-1+e,-l-e],l,+1))
                             E2 = deform(E2,0)
@@ -1729,7 +1738,7 @@ def CUIP(E,C):
                             E2 = reorder(E2)
                             if E2 not in C:
                                 C.append(E2)
-        for l in range(-1,A+1-e):
+        for l in range(-1,int(A+1-e)):
             if l == -1 or (l == 0 and e == 0):
                 pass
             else: 
@@ -1911,17 +1920,17 @@ def Is_Arthur(m,T):
             for p in T:
                 S.append(p[0])            
             A = max(S)-m[0][0]
-            k = [S.count(i+m[0][0]) for i in range(A+1)]
+            k = [S.count(i+m[0][0]) for i in range(int(A)+1)]
             k.append(0)
             f = 1
-            for i in range(A):
+            for i in range(int(A)):
                 if k[i] < k[i+1]:
                     f = 0
                     break
             if f == 1:
                 if x == 0:
                     psi0 = []
-                    for i in range(A+1):
+                    for i in range(int(A)+1):
                         for _ in range(k[i]-k[i+1]):
                             psi0.append((i+1,i+1))
                     psi = tuple(psi0)
@@ -1937,7 +1946,7 @@ def Is_Arthur(m,T):
                         return False, 0, ()
                 else:
                     psi0 = []
-                    for i in range(A+1):
+                    for i in range(int(A)+1):
                         for _ in range(k[i]-k[i+1]):        
                             psi0.append((i+2,i+1))
                     psi = tuple(psi0)
@@ -1962,14 +1971,14 @@ def Is_Arthur(m,T):
 ###########################################################
 
 def decomp(ab,E):
-    """
-    Decomposition of Speh(a,b) \rtimes rep(E).
+    r"""
+    Decomposition of Speh(a,b) rtimes rep(E).
     Input: (ab,E)
         ab (= (a,b), two positive integers)
         E (extended multi-segment)
     Output: Pi
         Pi (list of extended multi-segments)
-            Speh(a,b) \rtimes rep(E) = \oplus_{E1 in Pi} rep(E1).
+            Speh(a,b) rtimes rep(E) = oplus_{E1 in Pi} rep(E1).
     """
     a = ab[0]; b = ab[1]
     A = (a+b)/2-1; B = (a-b)/2
@@ -1986,21 +1995,21 @@ def decomp(ab,E):
     for l in range(b//2+1):
         if B+l >= 0 or (B+l == -1/2 and e % 2 == 0):
             E0 = list(E)
-            E0.insert(c,([A,B],l,(-1)^(b-1)))
+            E0.insert(c,([A,B],l,(-1)**(b-1)))
             E0.insert(c,([A,B],l,1))
             E0 = tuple(E0)
             Pi.append(E0)
     for l in range((b+1)//2):
         if B+l >= 0 or (B+l == -1/2 and e % 2 == 1):
             E0 = list(E)
-            E0.insert(c,([A,B],l,(-1)^b))
+            E0.insert(c,([A,B],l,(-1)**b))
             E0.insert(c,([A,B],l,-1))
             E0 = tuple(E0)
             Pi.append(E0) 
     s = 1
     for i in range(len(E)): 
         b = E[i][0][0]-E[i][0][1]+1
-        s = (-1)^(int(b/2) + E[i][1]) * E[i][2]^b * s
+        s = (-1)**(int(b/2) + E[i][1]) * E[i][2]**b * s
     Pi = list(filter(lambda F: nonzero(F,s), Pi))
     return Pi
 
@@ -2010,15 +2019,15 @@ def decomp(ab,E):
 ###########################################################
 
 def soc(s,ab,E):
-    """
-    Socle of Speh(a,b)||^{s} \rtimes rep(E).
+    r"""
+    Socle of Speh(a,b)||**{s} rtimes rep(E).
     Input: (s,ab,E)
         s (real number)
         ab (= (a,b), two positive integers)
         E (extended multi-segment)
     Output: Pi
         Pi (list of (m,T))
-            soc(Speh(a,b)||^{s} \rtimes rep(E)) = \oplus_{(m,T) in Pi} (m,T).
+            soc(Speh(a,b)||**{s} rtimes rep(E)) = oplus_{(m,T) in Pi} (m,T).
     """
     a = ab[0]; b = ab[1]
     Pi = []
@@ -2098,7 +2107,7 @@ def soc(s,ab,E):
     if s > 0 and s <= (a-1)/2:
         m,T = rep(E)
         C = []
-        for i in range(2*s):
+        for i in range(int(2*s)):
             for j in range(b):
                 C.append(B+s-i+j)
         L = []
@@ -2148,7 +2157,7 @@ def soc(s,ab,E):
     if s < 0 and s >= -(b-1)/2:
         m,T = rep(E)
         C = []
-        for j in range(-2*s):
+        for j in range(-int(2*s)):
             for i in range(a):
                 C.append(B+s-i+j)
         L = []
@@ -2165,7 +2174,7 @@ def soc(s,ab,E):
                 L.append(k)
                 i = i+1
         Cr = list(reversed(C)); Lr = list(reversed(L))                
-        Pi1 = decomp((a,int(b+2*s)),E)
+        Pi1 = decomp((a,int(b+int(2*s))),E)
         for E1 in Pi1:
             m1,T1 = rep(E1)
             L1 = []
@@ -2204,13 +2213,13 @@ def soc(s,ab,E):
 
 def Is_irred(s,ab,E):
     """
-    Irreduciblity of Speh(a,b)||^{s} \rtimes rep(E).
+    Irreduciblity of Speh(a,b)||**{s} \rtimes rep(E).
     Input: (s,a,b,E)
         s (real number)
         ab (= (a,b), two positive integers)
         E (extended multi-segment)
     Output: True or False
-        True <=> Speh(a,b)||^{s} \rtimes rep(E) is irreducible.
+        True <=> Speh(a,b)||**{s} \rtimes rep(E) is irreducible.
     """
     a = ab[0]; b = ab[1]
     Pi1 = soc(s,(a,b),E); Pi2 = soc(-s,(a,b),E)
@@ -2218,14 +2227,14 @@ def Is_irred(s,ab,E):
 
 def FRP(ab,E):
     """
-    First reducibility point for Speh(a,b)||^{s} \rtimes rep(E).
+    First reducibility point for Speh(a,b)||**{s} \rtimes rep(E).
     Input: (s,a,b,E)
         ab (= (a,b), two positive integers)
         E (extended multi-segment)
     Output: s
         s (non-negative real number)
             the minimal non-negative real number  
-            such that Speh(a,b)||^{s} \rtimes rep(E) is reducible.
+            such that Speh(a,b)||**{s} \rtimes rep(E) is reducible.
     """
     a = ab[0]; b = ab[1]
     if (a-b - 2*E[0][0][0]) % 2 == 0:
